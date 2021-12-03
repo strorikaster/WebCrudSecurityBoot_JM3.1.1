@@ -2,7 +2,6 @@ package com.webcrudsecurityboot.webcrudsecurityboot.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -19,7 +18,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    @Column(unique = true)
     @NotEmpty(message = "Empty values not allowed")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 character")
     private String name;

@@ -1,9 +1,9 @@
 package com.webcrudsecurityboot.webcrudsecurityboot.model;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Set;
 
 
 // Этот класс реализует интерфейс GrantedAuthority, в котором необходимо переопределить только один метод getAuthority() (возвращает имя роли).
@@ -14,12 +14,8 @@ public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    @Column(unique=true)
     private String name;
-    //    @ManyToMany(mappedBy = "roles")//(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
-//    private Set<User> users;
-//    @ManyToMany(mappedBy = "roles", cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-//    private Set<User> users;
 
     public Role() {
 
@@ -29,10 +25,9 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    public Role(Long id, String name/*, Set<User> users*/) {
+    public Role(Long id, String name) {
         this.id = id;
         this.name = name;
-        //this.users = users;
     }
 
     public Long getId() {

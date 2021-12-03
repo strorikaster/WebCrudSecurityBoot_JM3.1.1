@@ -13,8 +13,7 @@ import java.util.List;
 @Repository
 public class RoleRepositoryImpl implements RoleRepository {
 
-    //@PersistenceContext
-    @Autowired
+    @PersistenceContext
     EntityManager entityManager;
 
 
