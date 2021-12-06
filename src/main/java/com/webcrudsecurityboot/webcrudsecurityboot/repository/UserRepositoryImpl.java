@@ -27,8 +27,16 @@ public class UserRepositoryImpl implements UserRepository {
         System.out.println("User saved");
     }
 
-    public void update(User updatedUser) {
-        entityManager.merge(updatedUser);
+    public void update(Long id, User updatedUser) {
+        User userToBeUpdated = show(id);
+        userToBeUpdated.setName(updatedUser.getName());
+        userToBeUpdated.setSurName(updatedUser.getSurName());
+        userToBeUpdated.setEmail(updatedUser.getEmail());
+        userToBeUpdated.setAge(updatedUser.getAge());
+        userToBeUpdated.setPassword(updatedUser.getPassword());
+        userToBeUpdated.setRoles(updatedUser.getRoles());
+        entityManager.merge(userToBeUpdated);
+        System.out.println("Merge is work");
     }
 
     public void delete(Long id) {

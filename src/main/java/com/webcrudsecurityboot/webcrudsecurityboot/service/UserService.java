@@ -9,7 +9,7 @@ public interface UserService {
     List<User> getAllUsers();
     User show(Long id);
     void save(User user);
-    void update(User updatedUser);
+    void update(Long id, User updatedUser);
     void delete(Long id);
     UserDetails loadUserByUsername(String name);
 }

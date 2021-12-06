@@ -17,16 +17,16 @@ import java.util.Set;
 
         private UserService userService;
         private RoleService roleService;
-        private PasswordEncoder passwordEncoder;
+        //private PasswordEncoder passwordEncoder;
 
 
 
 
         @Autowired
-        public DataLoader (UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+        public DataLoader (UserService userService, RoleService roleService/*, PasswordEncoder passwordEncoder*/) {
             this.userService = userService;
             this.roleService = roleService;
-            this.passwordEncoder = passwordEncoder;
+            //this.passwordEncoder = passwordEncoder;
         }
 
         @PostConstruct
@@ -42,7 +42,8 @@ import java.util.Set;
 
             User user1  = new User();
             user1.setName("Alex");
-            user1.setPassword(passwordEncoder.encode("root"));
+            //user1.setPassword(passwordEncoder.encode("root"));
+            user1.setPassword("root");
             user1.setSurName("Zotov");
             user1.setEmail("zotov@mail.ru");
             user1.setAge(40);
@@ -53,7 +54,8 @@ import java.util.Set;
 
             User user2 = new User();
             user2.setName("Ivan");
-            user2.setPassword(passwordEncoder.encode("root"));
+            //user2.setPassword(passwordEncoder.encode("root"));
+            user2.setPassword("root");
             user2.setSurName("Petrov");
             user2.setEmail("petrov@mail.ru");
             user2.setAge(25);
@@ -63,7 +65,8 @@ import java.util.Set;
 
             User user3 = new User();
             user3.setName("Egor");
-            user3.setPassword(passwordEncoder.encode("root"));
+            //user3.setPassword(passwordEncoder.encode("root"));
+            user3.setPassword("root");
             user3.setSurName("Egorov");
             user3.setEmail("egorov@mail.ru");
             user3.setAge(27);

@@ -19,13 +19,13 @@ public class AdminController {
 
     private UserService userService;
     private RoleService roleService;
-    private PasswordEncoder passwordEncoder;
+    //private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public AdminController(UserService userService, RoleService roleService/*,PasswordEncoder passwordEncoder*/) {
         this.userService = userService;
         this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
+        //this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping(value = "/admin")
@@ -65,8 +65,7 @@ public class AdminController {
         for(Long roleId : rolesId) {
             roles.add(roleService.show(roleId));
         }
-        String cryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(cryptedPassword);
+
         user.setRoles(roles);
         userService.save(user);
         return "redirect:/admin";
@@ -75,34 +74,34 @@ public class AdminController {
 
     @GetMapping(value = "admin/{id}/edit")
     public String editUser(ModelMap model, @PathVariable("id") Long id) {
-
         model.addAttribute("user", userService.show(id));
         model.addAttribute("allRoles", roleService.getAllRoles());
         return "edit";
     }
 
     @PatchMapping("admin/{id}")
-    public String update(@ModelAttribute("user") @Valid User user,
-                         @RequestParam("rolesSelected") Long[] rolesId,
+    public String update(@ModelAttribute("user") @Valid User user, @PathVariable("id") Long id,
+//                         @RequestParam("rolesSelected") Long[] rolesId,
+//                         @RequestParam("password") String password,
+//                         @RequestParam("age") int age,
                          BindingResult bindingResult
     ) {
         if(bindingResult.hasErrors()) {
             return "edit";
         }
-        HashSet<Role> roles = new HashSet<>();
-        for(Long roleId : rolesId) {
-            roles.add(roleService.show(roleId));
-        }
-        String cryptedPassword = passwordEncoder.encode(user.getPassword());
-        int age = user.getAge();
-
-        user.setAge(age);
-        user.setEmail(user.getEmail());
-        user.setName(user.getName());
-        user.setSurName(user.getSurName());
-        user.setPassword(cryptedPassword);
-        user.setRoles(roles);
-        userService.update(user);
+//        HashSet<Role> roles = (HashSet<Role>) user.getRoles();
+//        for(Long roleId : rolesId) {
+//            roles.add(roleService.show(roleId));
+//        }
+//
+//
+//         user.setAge(age);
+//        System.out.println(age);
+//
+//        user.setPassword(password);
+//        System.out.println(password);
+//        user.setRoles(roles);
+        userService.update(id, user);
         return "redirect:/admin";
     }
 
